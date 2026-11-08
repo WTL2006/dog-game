@@ -9,12 +9,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
       font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       user-select: none;
     }
     .tablet-screen {
-      box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.3), 0 0 0 8px #1e293b, 0 0 0 12px #0f172a;
+      width: 960px;
+      height: 550px;
+      max-width: 98vw;
+      max-height: 96vh;
+      box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.4), 0 0 0 8px #1e293b, 0 0 0 12px #0f172a;
+      display: grid;
+      grid-template-rows: 52px 1fr 58px;
     }
     @keyframes pulse-ring {
       0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
@@ -51,48 +65,38 @@
     }
   </style>
 </head>
-<body class="bg-slate-900 min-h-screen flex items-center justify-center p-1 sm:p-3 text-slate-800">
+<body class="bg-slate-900 flex items-center justify-center text-slate-800">
 
-  <!-- Tablet Bezel Container (Viewport-fitted, never clips answer options or confirm button) -->
-  <div class="tablet-screen relative w-full max-w-5xl h-screen sm:h-[95vh] max-h-[750px] bg-slate-50 rounded-2xl sm:rounded-[28px] overflow-hidden border border-slate-300 flex flex-col justify-between shadow-2xl">
+  <!-- Fixed-Dimension Tablet Frame (960x550 locked layout) -->
+  <div class="tablet-screen relative bg-slate-50 rounded-[26px] overflow-hidden border border-slate-300">
     
-    <!-- Top Progress Track Bar -->
-    <header class="flex-shrink-0 w-full pt-2.5 pb-2 px-3 sm:px-6 bg-white/90 backdrop-blur border-b border-slate-200">
-      <div class="flex items-center justify-between gap-3">
-        
-        <!-- Track nodes container -->
-        <div class="flex-1 flex items-center justify-center">
-          <div id="progressTrack" class="relative flex items-center justify-between w-full max-w-xl px-1">
-            <!-- Background line -->
-            <div class="absolute left-3 right-3 top-1/2 -translate-y-1/2 h-1 bg-slate-200 -z-0"></div>
-            <!-- Progress Fill line -->
-            <div id="progressFill" class="absolute left-3 top-1/2 -translate-y-1/2 h-1 bg-amber-400 -z-0 transition-all duration-300" style="width: 0%;"></div>
-            <!-- Dynamic 10 question nodes -->
-          </div>
+    <!-- ROW 1: Fixed Header (52px) -->
+    <header class="w-full h-[52px] px-5 bg-white border-b border-slate-200 flex items-center justify-between">
+      <div class="flex-1 flex items-center justify-center">
+        <div id="progressTrack" class="relative flex items-center justify-between w-full max-w-xl px-2">
+          <div class="absolute left-3 right-3 top-1/2 -translate-y-1/2 h-1 bg-slate-200 -z-0"></div>
+          <div id="progressFill" class="absolute left-3 top-1/2 -translate-y-1/2 h-1 bg-amber-400 -z-0 transition-all duration-300" style="width: 0%;"></div>
         </div>
-
-        <!-- Audio mute/unmute button top-right -->
-        <button id="topMuteBtn" class="p-1.5 sm:p-2 rounded-full hover:bg-slate-100 text-slate-600 transition active:scale-95" title="Toggle Sound">
-          <svg id="topSoundIcon" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z"/>
-          </svg>
-        </button>
       </div>
+
+      <button id="topMuteBtn" class="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 transition active:scale-95 ml-3" title="Toggle Sound">
+        <svg id="topSoundIcon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z"/>
+        </svg>
+      </button>
     </header>
 
-    <!-- Main Game Arena (Scrollable on small phones, strictly fitted on tablet/desktop) -->
-    <main class="flex-1 min-h-0 grid grid-cols-12 gap-2 sm:gap-3 p-2 sm:p-3 md:p-4 overflow-y-auto sm:overflow-hidden items-stretch">
+    <!-- ROW 2: Fixed Main Arena (440px height, 3 locked columns) -->
+    <main class="w-full h-full p-3 grid grid-cols-12 gap-3 overflow-hidden items-stretch">
       
-      <!-- Left Column: SCORE & LIFE -->
-      <aside class="col-span-12 sm:col-span-3 lg:col-span-2 flex sm:flex-col justify-around sm:justify-center items-center gap-2 sm:gap-4 bg-white rounded-xl sm:rounded-2xl p-2.5 sm:p-3 border border-slate-200 shadow-sm flex-shrink-0">
+      <!-- Left Column: SCORE & LIFE (Fixed 2 cols) -->
+      <aside class="col-span-2 h-full flex flex-col justify-between items-center bg-white rounded-2xl p-3 border border-slate-200 shadow-sm overflow-hidden">
         
-        <!-- Score Box -->
-        <div class="flex flex-col items-center text-center">
-          <span class="text-[11px] sm:text-xs font-bold tracking-wider text-slate-600 uppercase">SCORE</span>
-          
-          <!-- Gem Graphic -->
-          <div class="relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center my-0.5">
-            <svg class="w-9 h-9 sm:w-11 sm:h-11 drop-shadow" viewBox="0 0 100 100" fill="none">
+        <!-- Score Section -->
+        <div class="flex flex-col items-center text-center w-full">
+          <span class="text-[11px] font-extrabold tracking-wider text-slate-500 uppercase">SCORE</span>
+          <div class="relative w-11 h-11 flex items-center justify-center my-1">
+            <svg class="w-10 h-10 drop-shadow" viewBox="0 0 100 100" fill="none">
               <polygon points="50,10 15,35 30,35" fill="#38bdf8"/>
               <polygon points="50,10 30,35 70,35" fill="#60a5fa"/>
               <polygon points="50,10 70,35 85,35" fill="#c084fc"/>
@@ -102,11 +106,8 @@
               <polygon points="50,10 85,35 50,90 15,35" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
             </svg>
           </div>
-
-          <div id="scoreDisplay" class="text-xl sm:text-2xl font-black text-slate-800">0</div>
-
-          <!-- Stars -->
-          <div id="starContainer" class="flex items-center gap-0.5 mt-0.5">
+          <div id="scoreDisplay" class="text-2xl font-black text-slate-800 leading-none">0</div>
+          <div id="starContainer" class="flex items-center gap-0.5 mt-1">
             <span class="text-amber-400 text-sm font-bold">★</span>
             <span class="text-slate-300 text-sm font-bold">★</span>
             <span class="text-slate-300 text-sm font-bold">★</span>
@@ -114,13 +115,12 @@
           </div>
         </div>
 
-        <div class="hidden sm:block w-full h-px bg-slate-100"></div>
+        <div class="w-full h-px bg-slate-100"></div>
 
-        <!-- Life Box -->
-        <div class="flex flex-col items-center text-center">
-          <span class="text-[11px] sm:text-xs font-bold tracking-wider text-slate-600 uppercase mb-1">LIFE</span>
-          
-          <div id="livesContainer" class="flex items-center gap-1">
+        <!-- Life Section -->
+        <div class="flex flex-col items-center text-center w-full">
+          <span class="text-[11px] font-extrabold tracking-wider text-slate-500 uppercase mb-1.5">LIFE</span>
+          <div id="livesContainer" class="flex items-center justify-center gap-1">
             <svg id="heart-1" class="w-6 h-6 text-rose-500 fill-current drop-shadow transition-transform" viewBox="0 0 24 24">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
@@ -136,134 +136,129 @@
 
       </aside>
 
-      <!-- Center Column: Scenario Display & Choice Cards -->
-      <section class="col-span-12 sm:col-span-6 lg:col-span-8 flex flex-col justify-between gap-2 min-h-0">
+      <!-- Center Column: Fixed Top Question Box + Fixed Bottom 3 Option Cards (8 cols) -->
+      <section class="col-span-8 h-full flex flex-col justify-between gap-2.5 overflow-hidden">
         
-        <!-- Scenario Visual & Prompt Card (Compact height to preserve space) -->
-        <div class="flex-shrink-0 bg-white rounded-xl sm:rounded-2xl border-2 border-slate-200 overflow-hidden shadow-sm p-2.5 sm:p-3.5 flex flex-col">
-          <!-- Illustration Box (h-20 sm:h-28 md:h-32) -->
-          <div id="scenarioVisual" class="w-full h-20 sm:h-28 md:h-32 bg-gradient-to-b from-sky-100 to-indigo-50 rounded-lg sm:rounded-xl border border-slate-200 flex items-center justify-center relative overflow-hidden mb-2">
+        <!-- Scenario Display Card (Locked 245px height) -->
+        <div class="w-full h-[245px] bg-white rounded-2xl border-2 border-slate-200 p-3 flex flex-col justify-between shadow-sm overflow-hidden">
+          <!-- Illustration Box (Locked 125px height) -->
+          <div id="scenarioVisual" class="w-full h-[125px] bg-gradient-to-b from-sky-100 to-indigo-50 rounded-xl border border-slate-200 flex items-center justify-center relative overflow-hidden flex-shrink-0">
             <!-- Injected Scenario SVG -->
           </div>
 
-          <!-- Scenario Heading -->
-          <div>
-            <div class="flex items-center gap-2 mb-0.5">
-              <span id="questionTag" class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-black bg-amber-100 text-amber-800 uppercase tracking-wide">Question 1/10</span>
-              <span id="scenarioCategory" class="text-[11px] sm:text-xs font-semibold text-slate-600">Encountering Dogs</span>
+          <!-- Question Text Box (Locked height) -->
+          <div class="flex flex-col justify-center flex-1 pt-2 overflow-hidden">
+            <div class="flex items-center gap-2 mb-1">
+              <span id="questionTag" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 uppercase tracking-wide">Question 1/10</span>
+              <span id="scenarioCategory" class="text-[11px] font-semibold text-slate-500 truncate">Encountering Dogs</span>
             </div>
-            <h2 id="questionPrompt" class="text-xs sm:text-sm md:text-base font-bold text-slate-900 leading-snug line-clamp-2">
+            <h2 id="questionPrompt" class="text-sm font-extrabold text-slate-900 leading-snug line-clamp-2">
               Loading scenario...
             </h2>
           </div>
         </div>
 
-        <!-- 3 Option Cards (Always visible, responsive grid) -->
-        <div id="optionsGrid" class="flex-1 min-h-0 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 items-stretch">
-          <!-- Dynamically populated 3 choice cards -->
+        <!-- 3 Option Cards Row (Locked 155px height) -->
+        <div id="optionsGrid" class="w-full h-[155px] grid grid-cols-3 gap-2.5 items-stretch flex-shrink-0">
+          <!-- Dynamically populated 3 fixed-size option cards -->
         </div>
 
       </section>
 
-      <!-- Right Column: TIMER -->
-      <aside class="col-span-12 sm:col-span-3 lg:col-span-2 flex sm:flex-col justify-around sm:justify-center items-center gap-2 sm:gap-4 bg-white rounded-xl sm:rounded-2xl p-2.5 sm:p-3 border border-slate-200 shadow-sm flex-shrink-0">
+      <!-- Right Column: TIMER & AUDIO (Fixed 2 cols) -->
+      <aside class="col-span-2 h-full flex flex-col justify-between items-center bg-white rounded-2xl p-3 border border-slate-200 shadow-sm overflow-hidden">
         
-        <div class="flex flex-col items-center text-center">
-          <span class="text-[11px] sm:text-xs font-bold tracking-wider text-slate-600 uppercase mb-1">TIMER</span>
+        <div class="flex flex-col items-center text-center w-full">
+          <span class="text-[11px] font-extrabold tracking-wider text-slate-500 uppercase mb-2">TIMER</span>
           
-          <!-- Circular Timer Ring -->
-          <div class="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center">
+          <div class="relative w-20 h-20 flex items-center justify-center">
             <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="40" stroke="#e2e8f0" stroke-width="8" fill="transparent"/>
               <circle id="timerCircle" class="circle-timer" cx="50" cy="50" r="40" stroke="#f97316" stroke-width="8" stroke-linecap="round" stroke-dasharray="251.2" stroke-dashoffset="0" fill="transparent"/>
             </svg>
             <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span class="text-sm sm:text-base">⏳</span>
-              <span id="timerText" class="text-[11px] sm:text-xs font-black text-slate-700">15s</span>
+              <span class="text-base">⏳</span>
+              <span id="timerText" class="text-xs font-black text-slate-700">15s</span>
             </div>
           </div>
         </div>
 
-        <div class="hidden sm:block w-full h-px bg-slate-100"></div>
+        <div class="w-full h-px bg-slate-100"></div>
 
-        <div class="flex flex-col items-center text-center">
-          <button id="sideMuteBtn" class="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold text-slate-600 hover:bg-slate-50 transition active:scale-95">
+        <div class="flex flex-col items-center text-center w-full">
+          <button id="sideMuteBtn" class="flex items-center justify-center gap-1 w-full py-1.5 px-2 rounded-lg border border-slate-200 text-[11px] font-bold text-slate-600 hover:bg-slate-50 transition active:scale-95">
             <span id="sideSoundIcon">🔊</span>
             <span id="sideSoundText">Sound On</span>
           </button>
-          <span class="hidden sm:block text-[10px] text-slate-500 mt-1.5 text-center leading-tight">Stay calm; avoid sudden moves!</span>
+          <span class="text-[10px] text-slate-400 mt-2 text-center leading-tight">Think safe! Dogs react to your body cues.</span>
         </div>
 
       </aside>
 
     </main>
 
-    <!-- Bottom Navigation Bar (Fixed at bottom, always fully visible) -->
-    <footer class="flex-shrink-0 w-full bg-white/95 backdrop-blur border-t border-slate-200 px-4 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between">
+    <!-- ROW 3: Fixed Bottom Bar (58px height - always on screen) -->
+    <footer class="w-full h-[58px] bg-white border-t border-slate-200 px-6 flex items-center justify-between">
       
-      <!-- Back to Menu Button -->
-      <button id="backBtn" class="p-2 sm:p-2.5 rounded-full border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:bg-slate-100 transition active:scale-95 flex items-center justify-center" title="Back to Mode Selection">
-        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <!-- Back Button -->
+      <button id="backBtn" class="w-9 h-9 rounded-full border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:bg-slate-100 transition active:scale-95 flex items-center justify-center" title="Back to Mode Selection">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
         </svg>
       </button>
 
-      <!-- Center Action Button (Blue Pill Button, prominent and easy to click) -->
-      <div class="flex items-center gap-3">
-        <button id="actionBtn" class="px-6 sm:px-8 py-2 sm:py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-black text-sm sm:text-base flex items-center gap-2 shadow-md shadow-blue-500/30 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
-          <span>Confirm</span>
-          <svg class="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-        </button>
-      </div>
+      <!-- Center Confirm / Play Button (Blue Pill Button) -->
+      <button id="actionBtn" class="px-10 py-2 rounded-full bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-extrabold text-sm flex items-center gap-2 shadow-md shadow-blue-500/25 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
+        <span>Confirm</span>
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
 
-      <!-- Right: Skip Button -->
-      <div class="flex items-center gap-2">
-        <button id="skipBtn" class="p-2 sm:p-2.5 rounded-full border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:bg-slate-100 transition active:scale-95 flex items-center justify-center" title="Skip this question">
-          <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
-          </svg>
-        </button>
-      </div>
+      <!-- Right Skip Button -->
+      <button id="skipBtn" class="w-9 h-9 rounded-full border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:bg-slate-100 transition active:scale-95 flex items-center justify-center" title="Skip this question">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+        </svg>
+      </button>
 
     </footer>
 
-    <!-- Feedback Modal Popup -->
-    <div id="feedbackModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 hidden">
-      <div class="bg-white rounded-2xl sm:rounded-3xl max-w-md w-full p-5 sm:p-6 text-center border-4 shadow-2xl transition-all transform scale-95" id="feedbackCard">
-        <div id="feedbackIcon" class="w-14 h-14 rounded-full mx-auto flex items-center justify-center text-2xl sm:text-3xl mb-2.5 shadow-inner"></div>
-        <h3 id="feedbackTitle" class="text-lg sm:text-xl font-extrabold mb-1.5"></h3>
-        <p id="feedbackText" class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4"></p>
-        <button id="modalNextBtn" class="w-full py-2.5 sm:py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm sm:text-base transition shadow active:scale-95">
+    <!-- Feedback Modal Popup (Inside Tablet Frame) -->
+    <div id="feedbackModal" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center border-4 shadow-2xl" id="feedbackCard">
+        <div id="feedbackIcon" class="w-14 h-14 rounded-full mx-auto flex items-center justify-center text-3xl mb-2.5 shadow-inner"></div>
+        <h3 id="feedbackTitle" class="text-xl font-extrabold mb-1.5"></h3>
+        <p id="feedbackText" class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5"></p>
+        <button id="modalNextBtn" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow active:scale-95">
           Continue
         </button>
       </div>
     </div>
 
-    <!-- Game Over / Victory Modal -->
-    <div id="endGameModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 hidden">
-      <div class="bg-white rounded-2xl sm:rounded-3xl max-w-md w-full p-6 sm:p-8 text-center border-2 border-slate-300 shadow-2xl">
-        <div id="endGameIcon" class="text-5xl sm:text-6xl mb-2">🏆</div>
-        <h2 id="endGameTitle" class="text-xl sm:text-2xl font-black text-slate-900 mb-1">Game Completed!</h2>
-        <p id="endGameSubtitle" class="text-xs sm:text-sm text-slate-500 mb-5">Here is how well you know dog safety rules:</p>
+    <!-- Game Over / Victory Screen Modal (Inside Tablet Frame) -->
+    <div id="endGameModal" class="absolute inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center border-2 border-slate-300 shadow-2xl">
+        <div id="endGameIcon" class="text-5xl mb-2">🏆</div>
+        <h2 id="endGameTitle" class="text-xl font-black text-slate-900 mb-1">Game Completed!</h2>
+        <p id="endGameSubtitle" class="text-xs text-slate-500 mb-4">Here is how well you know dog safety rules:</p>
         
-        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 sm:p-4 grid grid-cols-2 gap-3 mb-5">
-          <div class="p-2.5 bg-white rounded-lg border border-slate-100 shadow-sm">
-            <span class="text-[10px] sm:text-xs font-bold text-slate-600 uppercase">Final Score</span>
-            <div id="endGameScore" class="text-2xl sm:text-3xl font-black text-blue-600 mt-0.5">0</div>
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 grid grid-cols-2 gap-3 mb-5">
+          <div class="p-2 bg-white rounded-lg border border-slate-100 shadow-sm">
+            <span class="text-[10px] font-bold text-slate-500 uppercase">Final Score</span>
+            <div id="endGameScore" class="text-2xl font-black text-blue-600 mt-0.5">0</div>
           </div>
-          <div class="p-2.5 bg-white rounded-lg border border-slate-100 shadow-sm">
-            <span class="text-[10px] sm:text-xs font-bold text-slate-600 uppercase">Rating</span>
-            <div id="endGameStars" class="text-xl sm:text-2xl text-amber-400 mt-0.5">★★★★</div>
+          <div class="p-2 bg-white rounded-lg border border-slate-100 shadow-sm">
+            <span class="text-[10px] font-bold text-slate-500 uppercase">Rating</span>
+            <div id="endGameStars" class="text-xl text-amber-400 mt-0.5">★★★★</div>
           </div>
         </div>
 
-        <div class="flex gap-2 sm:gap-3">
-          <button id="playAgainBtn" class="flex-1 py-2.5 sm:py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm sm:text-base transition shadow active:scale-95">
+        <div class="flex gap-3">
+          <button id="playAgainBtn" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow active:scale-95">
             Play Again
           </button>
-          <button id="menuBtn" class="flex-1 py-2.5 sm:py-3 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-sm sm:text-base transition text-center flex items-center justify-center">
+          <button id="menuBtn" class="flex-1 py-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-sm transition text-center flex items-center justify-center">
             Mode Menu
           </button>
         </div>
@@ -797,7 +792,7 @@
       questions.forEach((_, idx) => {
         const node = document.createElement('div');
         node.id = `track-node-${idx}`;
-        node.className = `relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-md sm:rounded-lg flex items-center justify-center font-bold text-[10px] sm:text-xs transition-all duration-300 ${
+        node.className = `relative z-10 w-6 h-6 rounded-md flex items-center justify-center font-bold text-xs transition-all duration-300 ${
           idx === 0 
             ? 'bg-amber-500 text-white shadow border border-amber-600 scale-110 pointer-notch' 
             : 'bg-white text-slate-400 border border-slate-300'
@@ -836,12 +831,12 @@
         if (!node) return;
         node.classList.remove('pointer-notch', 'scale-110');
         if (i === index) {
-          node.className = 'relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-md sm:rounded-lg flex items-center justify-center font-bold text-[10px] sm:text-xs transition-all duration-300 bg-amber-500 text-white shadow border border-amber-600 scale-110 pointer-notch';
+          node.className = 'relative z-10 w-6 h-6 rounded-md flex items-center justify-center font-bold text-xs transition-all duration-300 bg-amber-500 text-white shadow border border-amber-600 scale-110 pointer-notch';
           node.textContent = '?';
         } else if (i < index) {
-          // keep completed status
+          // preserve check or cross
         } else {
-          node.className = 'relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-md sm:rounded-lg flex items-center justify-center font-bold text-[10px] sm:text-xs transition-all duration-300 bg-white text-slate-400 border border-slate-300';
+          node.className = 'relative z-10 w-6 h-6 rounded-md flex items-center justify-center font-bold text-xs transition-all duration-300 bg-white text-slate-400 border border-slate-300';
           node.textContent = '?';
         }
       });
@@ -852,14 +847,15 @@
 
       q.options.forEach((opt, optIdx) => {
         const card = document.createElement('button');
-        card.className = 'option-card text-left bg-white rounded-xl p-2 sm:p-2.5 md:p-3 border-2 border-slate-200 hover:border-slate-300 hover:shadow transition-all flex flex-col items-center justify-center min-h-[90px] sm:min-h-[105px] md:min-h-[115px] cursor-pointer group active:scale-[0.98] w-full';
+        // Locked 155px height card with overflow hidden
+        card.className = 'option-card h-[155px] text-left bg-white rounded-2xl p-3 border-2 border-slate-200 hover:border-slate-300 hover:shadow transition-all flex flex-col items-center justify-center cursor-pointer group active:scale-[0.98] w-full overflow-hidden';
         card.setAttribute('data-index', optIdx);
 
         card.innerHTML = `
-          <div class="text-2xl sm:text-3xl mb-1 group-hover:scale-110 transition-transform">${opt.icon}</div>
-          <div class="text-center w-full">
-            <h4 class="font-extrabold text-slate-800 text-xs sm:text-sm leading-tight">${opt.title}</h4>
-            <p class="text-[10px] sm:text-xs text-slate-500 mt-0.5 line-clamp-2 leading-tight">${opt.desc}</p>
+          <div class="text-3xl mb-1.5 group-hover:scale-110 transition-transform flex-shrink-0">${opt.icon}</div>
+          <div class="text-center w-full overflow-hidden">
+            <h4 class="font-extrabold text-slate-800 text-xs sm:text-sm leading-tight truncate">${opt.title}</h4>
+            <p class="text-[11px] text-slate-500 mt-1 line-clamp-2 leading-tight">${opt.desc}</p>
           </div>
         `;
 
@@ -1004,10 +1000,10 @@
       if (node) {
         node.classList.remove('bg-amber-500', 'border-amber-600', 'pointer-notch', 'scale-110');
         if (isCorrect) {
-          node.className = 'relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-md sm:rounded-lg flex items-center justify-center font-bold text-[10px] sm:text-xs bg-emerald-500 text-white border border-emerald-600';
+          node.className = 'relative z-10 w-6 h-6 rounded-md flex items-center justify-center font-bold text-xs bg-emerald-500 text-white border border-emerald-600';
           node.textContent = '✓';
         } else {
-          node.className = 'relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-md sm:rounded-lg flex items-center justify-center font-bold text-[10px] sm:text-xs bg-rose-500 text-white border border-rose-600';
+          node.className = 'relative z-10 w-6 h-6 rounded-md flex items-center justify-center font-bold text-xs bg-rose-500 text-white border border-rose-600';
           node.textContent = '✗';
         }
       }
@@ -1021,15 +1017,15 @@
       const textElem = document.getElementById('feedbackText');
 
       if (isSafe) {
-        card.className = 'bg-white rounded-2xl sm:rounded-3xl max-w-md w-full p-5 sm:p-6 text-center border-4 border-emerald-400 shadow-2xl';
-        icon.className = 'w-14 h-14 rounded-full mx-auto flex items-center justify-center text-2xl sm:text-3xl mb-2.5 bg-emerald-100 text-emerald-600';
+        card.className = 'bg-white rounded-3xl max-w-md w-full p-6 text-center border-4 border-emerald-400 shadow-2xl';
+        icon.className = 'w-14 h-14 rounded-full mx-auto flex items-center justify-center text-3xl mb-2.5 bg-emerald-100 text-emerald-600';
         icon.textContent = '🛡️';
-        titleElem.className = 'text-lg sm:text-xl font-extrabold text-emerald-700 mb-1';
+        titleElem.className = 'text-xl font-extrabold text-emerald-700 mb-1';
       } else {
-        card.className = 'bg-white rounded-2xl sm:rounded-3xl max-w-md w-full p-5 sm:p-6 text-center border-4 border-rose-400 shadow-2xl';
-        icon.className = 'w-14 h-14 rounded-full mx-auto flex items-center justify-center text-2xl sm:text-3xl mb-2.5 bg-rose-100 text-rose-600';
+        card.className = 'bg-white rounded-3xl max-w-md w-full p-6 text-center border-4 border-rose-400 shadow-2xl';
+        icon.className = 'w-14 h-14 rounded-full mx-auto flex items-center justify-center text-3xl mb-2.5 bg-rose-100 text-rose-600';
         icon.textContent = '⚠️';
-        titleElem.className = 'text-lg sm:text-xl font-extrabold text-rose-700 mb-1';
+        titleElem.className = 'text-xl font-extrabold text-rose-700 mb-1';
       }
 
       titleElem.textContent = title;
