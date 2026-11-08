@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HUMANS AND DOGS - Mode 1: Canine Safety Quiz</title>
+  <title>人類與狗狗 - 模式一：狗狗安全問答遊戲</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;600;700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -18,7 +18,7 @@
       width: 100%;
       height: 100vh;
       overflow: hidden;
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      font-family: 'Noto Sans TC', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       user-select: none;
     }
     .tablet-screen {
@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <button id="topMuteBtn" class="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 transition active:scale-95 ml-3" title="Toggle Sound">
+      <button id="topMuteBtn" class="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 transition active:scale-95 ml-3" title="切換音效">
         <svg id="topSoundIcon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z"/>
         </svg>
@@ -94,7 +94,7 @@
         
         <!-- Score Section -->
         <div class="flex flex-col items-center text-center w-full">
-          <span class="text-[11px] font-extrabold tracking-wider text-slate-500 uppercase">SCORE</span>
+          <span class="text-xs font-extrabold tracking-wider text-slate-600 uppercase">分數</span>
           <div class="relative w-11 h-11 flex items-center justify-center my-1">
             <svg class="w-10 h-10 drop-shadow" viewBox="0 0 100 100" fill="none">
               <polygon points="50,10 15,35 30,35" fill="#38bdf8"/>
@@ -119,7 +119,7 @@
 
         <!-- Life Section -->
         <div class="flex flex-col items-center text-center w-full">
-          <span class="text-[11px] font-extrabold tracking-wider text-slate-500 uppercase mb-1.5">LIFE</span>
+          <span class="text-xs font-extrabold tracking-wider text-slate-600 uppercase mb-1.5">生命值</span>
           <div id="livesContainer" class="flex items-center justify-center gap-1">
             <svg id="heart-1" class="w-6 h-6 text-rose-500 fill-current drop-shadow transition-transform" viewBox="0 0 24 24">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -131,7 +131,7 @@
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
           </div>
-          <p id="livesText" class="text-[11px] font-semibold text-slate-500 mt-1">3 Left</p>
+          <p id="livesText" class="text-[11px] font-semibold text-slate-500 mt-1">剩餘 3</p>
         </div>
 
       </aside>
@@ -149,11 +149,11 @@
           <!-- Question Text Box (Locked height) -->
           <div class="flex flex-col justify-center flex-1 pt-2 overflow-hidden">
             <div class="flex items-center gap-2 mb-1">
-              <span id="questionTag" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 uppercase tracking-wide">Question 1/10</span>
-              <span id="scenarioCategory" class="text-[11px] font-semibold text-slate-500 truncate">Encountering Dogs</span>
+              <span id="questionTag" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 uppercase tracking-wide">第 1/10 題</span>
+              <span id="scenarioCategory" class="text-[11px] font-semibold text-slate-500 truncate">遇到狗狗</span>
             </div>
             <h2 id="questionPrompt" class="text-sm font-extrabold text-slate-900 leading-snug line-clamp-2">
-              Loading scenario...
+              載入情境中...
             </h2>
           </div>
         </div>
@@ -169,7 +169,7 @@
       <aside class="col-span-2 h-full flex flex-col justify-between items-center bg-white rounded-2xl p-3 border border-slate-200 shadow-sm overflow-hidden">
         
         <div class="flex flex-col items-center text-center w-full">
-          <span class="text-[11px] font-extrabold tracking-wider text-slate-500 uppercase mb-2">TIMER</span>
+          <span class="text-xs font-extrabold tracking-wider text-slate-600 uppercase mb-2">倒數計時</span>
           
           <div class="relative w-20 h-20 flex items-center justify-center">
             <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
@@ -178,7 +178,7 @@
             </svg>
             <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
               <span class="text-base">⏳</span>
-              <span id="timerText" class="text-xs font-black text-slate-700">15s</span>
+              <span id="timerText" class="text-xs font-black text-slate-700">15秒</span>
             </div>
           </div>
         </div>
@@ -188,9 +188,9 @@
         <div class="flex flex-col items-center text-center w-full">
           <button id="sideMuteBtn" class="flex items-center justify-center gap-1 w-full py-1.5 px-2 rounded-lg border border-slate-200 text-[11px] font-bold text-slate-600 hover:bg-slate-50 transition active:scale-95">
             <span id="sideSoundIcon">🔊</span>
-            <span id="sideSoundText">Sound On</span>
+            <span id="sideSoundText">音效開啟</span>
           </button>
-          <span class="text-[10px] text-slate-400 mt-2 text-center leading-tight">Think safe! Dogs react to your body cues.</span>
+          <span class="text-[10px] text-slate-500 mt-2 text-center leading-tight">保持冷靜！狗狗會根據你的肢體動作作出反應。</span>
         </div>
 
       </aside>
@@ -201,7 +201,7 @@
     <footer class="w-full h-[58px] bg-white border-t border-slate-200 px-6 flex items-center justify-between">
       
       <!-- Back Button -->
-      <button id="backBtn" class="w-9 h-9 rounded-full border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:bg-slate-100 transition active:scale-95 flex items-center justify-center" title="Back to Mode Selection">
+      <button id="backBtn" class="w-9 h-9 rounded-full border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:bg-slate-100 transition active:scale-95 flex items-center justify-center" title="返回模式選擇">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
         </svg>
@@ -209,14 +209,14 @@
 
       <!-- Center Confirm / Play Button (Blue Pill Button) -->
       <button id="actionBtn" class="px-10 py-2 rounded-full bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-extrabold text-sm flex items-center gap-2 shadow-md shadow-blue-500/25 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
-        <span>Confirm</span>
+        <span>確認答案</span>
         <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
           <path d="M8 5v14l11-7z"/>
         </svg>
       </button>
 
       <!-- Right Skip Button -->
-      <button id="skipBtn" class="w-9 h-9 rounded-full border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:bg-slate-100 transition active:scale-95 flex items-center justify-center" title="Skip this question">
+      <button id="skipBtn" class="w-9 h-9 rounded-full border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:bg-slate-100 transition active:scale-95 flex items-center justify-center" title="跳過此題">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
         </svg>
@@ -231,7 +231,7 @@
         <h3 id="feedbackTitle" class="text-xl font-extrabold mb-1.5"></h3>
         <p id="feedbackText" class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5"></p>
         <button id="modalNextBtn" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow active:scale-95">
-          Continue
+          繼續下一題
         </button>
       </div>
     </div>
@@ -240,26 +240,26 @@
     <div id="endGameModal" class="absolute inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
       <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center border-2 border-slate-300 shadow-2xl">
         <div id="endGameIcon" class="text-5xl mb-2">🏆</div>
-        <h2 id="endGameTitle" class="text-xl font-black text-slate-900 mb-1">Game Completed!</h2>
-        <p id="endGameSubtitle" class="text-xs text-slate-500 mb-4">Here is how well you know dog safety rules:</p>
+        <h2 id="endGameTitle" class="text-xl font-black text-slate-900 mb-1">遊戲完成！</h2>
+        <p id="endGameSubtitle" class="text-xs text-slate-500 mb-4">以下是你對狗狗安全守則的掌握程度：</p>
         
         <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 grid grid-cols-2 gap-3 mb-5">
           <div class="p-2 bg-white rounded-lg border border-slate-100 shadow-sm">
-            <span class="text-[10px] font-bold text-slate-500 uppercase">Final Score</span>
+            <span class="text-[10px] font-bold text-slate-500 uppercase">最終分數</span>
             <div id="endGameScore" class="text-2xl font-black text-blue-600 mt-0.5">0</div>
           </div>
           <div class="p-2 bg-white rounded-lg border border-slate-100 shadow-sm">
-            <span class="text-[10px] font-bold text-slate-500 uppercase">Rating</span>
+            <span class="text-[10px] font-bold text-slate-500 uppercase">星級評價</span>
             <div id="endGameStars" class="text-xl text-amber-400 mt-0.5">★★★★</div>
           </div>
         </div>
 
         <div class="flex gap-3">
           <button id="playAgainBtn" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow active:scale-95">
-            Play Again
+            再玩一次
           </button>
           <button id="menuBtn" class="flex-1 py-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-sm transition text-center flex items-center justify-center">
-            Mode Menu
+            返回模式選單
           </button>
         </div>
       </div>
@@ -344,12 +344,12 @@
     }
     const sfx = new SoundFX();
 
-    // --- Dog Encounters Question Bank ---
+    // --- 狗狗相遇安全情境題庫 (Traditional Chinese) ---
     const rawQuestions = [
       {
         id: 1,
-        category: "Stray or Off-Leash Dog",
-        prompt: "An unfamiliar dog without a leash suddenly runs toward you barking loudly. What should you do?",
+        category: "流浪狗或未繫繩的狗",
+        prompt: "一隻沒有繫狗繩的陌生狗狗突然一邊大聲吠叫、一邊朝你衝過來。你應該怎麼做？",
         sceneSvg: `
           <svg class="w-full h-full" viewBox="0 0 500 200" fill="none">
             <rect width="500" height="200" fill="#e0f2fe"/>
@@ -366,32 +366,32 @@
         `,
         options: [
           {
-            title: "Be a Tree",
-            desc: "Stop, fold arms across chest, avoid eye contact.",
+            title: "像樹一樣站立不動",
+            desc: "停下腳步、雙手抱胸，避免與狗狗直接眼神接觸。",
             icon: "🌲",
             isCorrect: true,
-            feedback: "Correct! Running triggers chase instinct. Standing motionless ('like a tree') makes you uninteresting and defuses the charge."
+            feedback: "答對了！逃跑會觸發狗狗追捕獵物的本能。像樹一樣靜止不動會讓狗狗對你失去興趣，從而化解危機。"
           },
           {
-            title: "Scream & Sprint",
-            desc: "Turn around and run as fast as possible yelling.",
+            title: "尖叫並拔腿狂奔",
+            desc: "立刻轉身，一邊大聲尖叫一邊拼命逃跑。",
             icon: "🏃‍♂️",
             isCorrect: false,
-            feedback: "Dangerous! Running activates the dog's pursuit drive, and high-pitched screaming agitates the dog into biting."
+            feedback: "非常危險！奔跑會激發狗狗的追逐本能，而高音尖叫會令狗狗更加興奮或焦躁，增加被咬風險。"
           },
           {
-            title: "Wave Arms & Shout",
-            desc: "Wave hands in the air and shout aggressively.",
+            title: "揮動雙手並大聲喝斥",
+            desc: "在空中大力揮舞雙臂，對著狗狗大吼大叫。",
             icon: "🗣️",
             isCorrect: false,
-            feedback: "Risky! Flailing arms and loud confrontation are perceived as threats, escalating defensive aggression."
+            feedback: "有風險！揮手與大吼會被狗狗視為挑釁或攻擊威脅，可能引發牠的防衛性攻擊。"
           }
         ]
       },
       {
         id: 2,
-        category: "Food & Chewing",
-        prompt: "You see a dog lying down gnawing on a juicy bone or food bowl. What should you do?",
+        category: "進食與啃骨頭",
+        prompt: "你看到一隻狗狗正趴在地上啃骨頭或吃狗碗裡的食物。你應該怎麼做？",
         sceneSvg: `
           <svg class="w-full h-full" viewBox="0 0 500 200" fill="none">
             <rect width="500" height="200" fill="#fef3c7"/>
@@ -405,32 +405,32 @@
         `,
         options: [
           {
-            title: "Leave in Peace",
-            desc: "Stay back and let the dog eat without interruption.",
+            title: "保持距離不打擾",
+            desc: "退後保持距離，讓狗狗安靜地吃完食物。",
             icon: "🛡️",
             isCorrect: true,
-            feedback: "Correct! Resource guarding is a primary cause of dog bites. Never disturb an eating dog."
+            feedback: "答對了！「護食行為」是犬隻咬人最常見的原因之一，切勿打擾正在進食的狗狗。"
           },
           {
-            title: "Take Away Bone",
-            desc: "Reach in quickly and grab the bone to play.",
+            title: "伸手拿走骨頭",
+            desc: "快速伸手拿走骨頭，想跟牠玩你丟我撿。",
             icon: "🦴",
             isCorrect: false,
-            feedback: "Very Dangerous! Dogs will naturally defend food or bones. Reaching in almost guarantees a warning bite."
+            feedback: "極度危險！狗狗天生會保護食物或骨頭，伸手搶奪幾乎一定會引發撲咬。"
           },
           {
-            title: "Sneak Pet from Behind",
-            desc: "Quietly stroke its head while it's eating.",
+            title: "從背後偷偷摸牠",
+            desc: "趁牠專心吃東西時，從後面摸牠的頭。",
             icon: "🤫",
             isCorrect: false,
-            feedback: "Unsafe! Touching an eating dog startles it, triggering a defensive reflex snap."
+            feedback: "不安全！觸碰正在進食的狗狗會嚇到牠，觸發本能的防衛反咬。"
           }
         ]
       },
       {
         id: 3,
-        category: "Meeting Pets with Owners",
-        prompt: "A neighbor is walking a cute dog on a leash. You really want to pet it. What is the first step?",
+        category: "遇到有主人的狗狗",
+        prompt: "鄰居正牽著一隻很可愛的狗狗散步，你非常想摸摸牠。第一步應該做什麼？",
         sceneSvg: `
           <svg class="w-full h-full" viewBox="0 0 500 200" fill="none">
             <rect width="500" height="200" fill="#f0fdf4"/>
@@ -439,38 +439,38 @@
             <rect x="322" y="90" width="16" height="40" fill="#0284c7" rx="4"/>
             <path d="M325 105 L260 145" stroke="#475569" stroke-width="3" stroke-dasharray="4"/>
             <circle cx="240" cy="145" r="18" fill="#eab308"/>
-            <rect x="110" y="50" width="130" height="45" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-            <text x="125" y="77" font-size="13" font-weight="bold" fill="#0f172a">May I pet your dog?</text>
+            <rect x="110" y="50" width="145" height="45" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+            <text x="122" y="77" font-size="13" font-weight="bold" fill="#0f172a">請問可以摸牠嗎？</text>
           </svg>
         `,
         options: [
           {
-            title: "Ask the Owner",
-            desc: "Ask politely first: 'May I pet your dog?'",
+            title: "先詢問狗主人",
+            desc: "禮貌地先問主人：「請問我可以摸你的狗嗎？」",
             icon: "🤝",
             isCorrect: true,
-            feedback: "Correct! The owner knows best whether their dog is friendly, nervous, injured, or in training."
+            feedback: "答對了！主人最清楚狗狗的性格、是否怕生、身體有沒有不適或正在接受訓練。"
           },
           {
-            title: "Rush & Hug Neck",
-            desc: "Run over enthusiastically and wrap arms around it.",
+            title: "衝過去抱住脖子",
+            desc: "熱情地跑過去，張開雙手緊緊抱住狗狗。",
             icon: "🤗",
             isCorrect: false,
-            feedback: "Dangerous! Hugging restricts a dog's movement, which dogs perceive as trapping or threatening."
+            feedback: "危險！擁抱會限制狗狗的行動，對狗狗來說這代表「被困住」或受威脅，而非喜愛。"
           },
           {
-            title: "Pat Head Suddenly",
-            desc: "Reach directly over the dog's eyes to pat its head.",
+            title: "直接伸手拍頭頂",
+            desc: "手直接從狗狗眼睛上方伸過去拍牠的頭。",
             icon: "✋",
             isCorrect: false,
-            feedback: "Unsafe! Reaching from high above a dog's head is intimidating. Dogs prefer sniffing first, then chest strokes."
+            feedback: "不安全！從高處越過視線摸頭會令狗狗感到壓迫。應先讓牠聞聞手背，再輕摸胸口或側頸。"
           }
         ]
       },
       {
         id: 4,
-        category: "Cornered or Anxious Dog",
-        prompt: "A dog is cornered against a fence in an alley, stiff, growling with teeth showing. What should you do?",
+        category: "受困或焦慮的狗",
+        prompt: "一隻狗狗在巷子角落被圍欄擋住，身體僵硬、露出牙齒並發出低吼。你應該怎麼做？",
         sceneSvg: `
           <svg class="w-full h-full" viewBox="0 0 500 200" fill="none">
             <rect width="500" height="200" fill="#f1f5f9"/>
@@ -485,32 +485,32 @@
         `,
         options: [
           {
-            title: "Back Away Slowly",
-            desc: "Keep calm, do not run, back away giving an escape path.",
+            title: "緩慢向後退開",
+            desc: "保持冷靜不要跑，慢慢退後並讓出逃生空間。",
             icon: "🚶‍♂️",
             isCorrect: true,
-            feedback: "Correct! A cornered dog bites when it feels there is no escape. Backing away slowly releases pressure."
+            feedback: "答對了！被逼入絕境的狗狗覺得無路可逃時就會咬人。緩慢後退能解除牠的戒心與壓力。"
           },
           {
-            title: "Stare Down Dog",
-            desc: "Stare directly into its eyes to assert dominance.",
+            title: "瞪大眼睛盯著牠",
+            desc: "直視狗狗的雙眼，試圖展現人類的威嚴。",
             icon: "👀",
             isCorrect: false,
-            feedback: "Dangerous! In dog language, direct unblinking eye contact is a combat challenge."
+            feedback: "危險！在狗狗的肢體語言中，長時間直視眼睛代表正面挑戰與攻擊信號。"
           },
           {
-            title: "Corner Closer",
-            desc: "Step forward holding your hand out to comfort it.",
+            title: "走上前安撫牠",
+            desc: "繼續走近角落，伸手想摸牠讓牠冷靜。",
             icon: "🛑",
             isCorrect: false,
-            feedback: "Extremely Dangerous! Approaching a cornered, growling dog leaves it with no choice other than to bite."
+            feedback: "極度危險！逼近一隻已經低吼、無路可退的狗狗，會迫使牠直接發動攻擊。"
           }
         ]
       },
       {
         id: 5,
-        category: "Emergency Fall",
-        prompt: "You are knocked down to the ground by an aggressive dog. How can you protect yourself best?",
+        category: "跌倒時的緊急自保",
+        prompt: "如果不幸被具攻擊性的狗狗撲倒在地上，怎樣做最能保護自己？",
         sceneSvg: `
           <svg class="w-full h-full" viewBox="0 0 500 200" fill="none">
             <rect width="500" height="200" fill="#fee2e2"/>
@@ -518,37 +518,37 @@
             <path d="M200 160 C200 130 250 130 260 160 Z" fill="#3b82f6"/>
             <circle cx="215" cy="145" r="14" fill="#fca5a5"/>
             <ellipse cx="225" cy="142" rx="8" ry="5" fill="#f87171"/>
-            <text x="220" y="110" font-size="16" font-weight="bold" fill="#b91c1c">Protect Neck & Face!</text>
+            <text x="200" y="110" font-size="16" font-weight="bold" fill="#b91c1c">保護頸部、耳朵與臉部！</text>
           </svg>
         `,
         options: [
           {
-            title: "Be a Rock (Curl Up)",
-            desc: "Curl in a ball on knees, clasp hands over neck/ears.",
+            title: "像石頭一樣蜷縮",
+            desc: "雙膝彎曲抱成球狀，雙手十指緊扣護住後頸與耳朵。",
             icon: "🪨",
             isCorrect: true,
-            feedback: "Correct! 'Be a rock' shields your neck, throat, and face while presenting minimal moving targets."
+            feedback: "答對了！蜷縮成石頭狀能保護最脆弱的頸部、喉嚨和臉部，並減少狗狗撕咬的目標。"
           },
           {
-            title: "Fight & Kick",
-            desc: "Flail around kicking and punching repeatedly.",
+            title: "用力踢打反擊",
+            desc: "手腳亂揮，不斷踢打和揮拳攻擊狗狗。",
             icon: "🥊",
             isCorrect: false,
-            feedback: "Risky! Thrashing increases frenzy and exposes arms and legs to severe bite wounds."
+            feedback: "有風險！劇烈掙扎和踢打會令狗狗更加狂躁，並使手腳暴露於嚴重咬傷風險中。"
           },
           {
-            title: "Roll on Your Back",
-            desc: "Roll belly-up and wave hands toward its face.",
+            title: "仰躺在地上",
+            desc: "肚子朝上平躺，用手推開狗狗的臉。",
             icon: "🔄",
             isCorrect: false,
-            feedback: "Extremely Dangerous! Rolling on your back exposes your throat and chest directly."
+            feedback: "極度危險！仰躺會讓你的喉嚨、臉部和胸口完全暴露。"
           }
         ]
       },
       {
         id: 6,
-        category: "Body Language",
-        prompt: "A dog is wagging its tail, but its body is stiff and ears are pinned back flat against its skull. What does this mean?",
+        category: "解讀狗狗肢體語言",
+        prompt: "一隻狗狗雖然在搖尾巴，但身體僵硬、耳朵緊貼向腦後。這代表什麼意思？",
         sceneSvg: `
           <svg class="w-full h-full" viewBox="0 0 500 200" fill="none">
             <rect width="500" height="200" fill="#ede9fe"/>
@@ -562,32 +562,32 @@
         `,
         options: [
           {
-            title: "Stressed / Threat",
-            desc: "The dog is nervous or defensive; give it space.",
+            title: "緊張戒備或威脅",
+            desc: "狗狗感到不安或具防衛性，應保持距離。",
             icon: "⚠️",
             isCorrect: true,
-            feedback: "Correct! Tail wagging does NOT always mean happy! Stiff wagging with pinned ears indicates defensive aggression."
+            feedback: "答對了！搖尾巴不一定代表開心！僵硬快速的搖尾加上飛機耳，代表高度緊張或防衛警戒。"
           },
           {
-            title: "Super Friendly",
-            desc: "Tail wag always equals joy; pet right away.",
+            title: "非常熱情友善",
+            desc: "搖尾巴就代表開心，可以馬上過去摸牠。",
             icon: "🐶",
             isCorrect: false,
-            feedback: "Common Misconception! A wagging tail only signifies arousal; body tension signals danger."
+            feedback: "常見誤解！搖尾巴只代表情緒激動，身體僵硬則是危險的警告信號。"
           },
           {
-            title: "Wants to Play",
-            desc: "Jump toward it to encourage active games.",
+            title: "想跟你玩追逐遊戲",
+            desc: "朝牠跳過去，跟牠一起跑跳玩耍。",
             icon: "🎾",
             isCorrect: false,
-            feedback: "Dangerous! Jumping toward a stressed dog will trigger a defensive bite."
+            feedback: "危險！朝一隻處於高度警戒的狗狗跳過去，會立即引發防衛咬擊。"
           }
         ]
       },
       {
         id: 7,
-        category: "Public Areas & Mall Incidents",
-        prompt: "In a busy shopping mall or walkway, two dogs start barking furiously and scuffle. What should bystanders do?",
+        category: "公眾場所與商場突發事件",
+        prompt: "在熱鬧的商場或行人通道上，兩隻狗狗突然激烈吠叫並扭打起來。路人應該怎麼做？",
         sceneSvg: `
           <svg class="w-full h-full" viewBox="0 0 500 200" fill="none">
             <rect width="500" height="200" fill="#f8fafc"/>
@@ -601,32 +601,32 @@
         `,
         options: [
           {
-            title: "Keep Distance",
-            desc: "Step away safely, protect pets, alert security.",
+            title: "保持安全距離",
+            desc: "立即退開，保護同行小孩與寵物，並通知保安。",
             icon: "🛡️",
             isCorrect: true,
-            feedback: "Correct! Crowding or putting bare hands between fighting dogs causes redirected bites. Stay clear and alert staff."
+            feedback: "答對了！圍觀或徒手插進打架的狗之間極易被「轉移性攻擊」咬傷。應退開並尋求專業人員協助。"
           },
           {
-            title: "Grab Collars",
-            desc: "Reach bare hands between snapping jaws for collars.",
+            title: "徒手拉扯狗頸圈",
+            desc: "直接伸手到兩隻狗的嘴邊，試圖拉開項圈。",
             icon: "🖐️",
             isCorrect: false,
-            feedback: "Dangerous! Hands placed near snapping dogs suffer severe puncture wounds from redirected bites."
+            feedback: "非常危險！打架中的狗狗處於極度亢奮狀態，徒手介入極容易遭受嚴重咬傷。"
           },
           {
-            title: "Scream in Middle",
-            desc: "Jump in between screaming to scare them apart.",
+            title: "擠進中間大聲尖叫",
+            desc: "站到兩隻狗中間尖叫，試圖嚇停牠們。",
             icon: "😱",
             isCorrect: false,
-            feedback: "Unsafe! High-pitched yelling increases panic and excitement, prolonging the fight."
+            feedback: "不安全！尖叫聲會加劇現場混亂與狗狗的激動情緒，令衝突更劇烈。"
           }
         ]
       },
       {
         id: 8,
-        category: "Sleeping Dogs",
-        prompt: "A dog is sleeping deeply in the middle of a narrow hallway you need to walk through. How should you pass?",
+        category: "熟睡中的狗狗",
+        prompt: "一隻狗狗正在狹窄走廊正中央熟睡，而你需要經過那裡。你應該怎麼通過？",
         sceneSvg: `
           <svg class="w-full h-full" viewBox="0 0 500 200" fill="none">
             <rect width="500" height="200" fill="#fff7ed"/>
@@ -638,32 +638,32 @@
         `,
         options: [
           {
-            title: "Speak Gently",
-            desc: "Call its name softly from a distance so it wakes.",
+            title: "在遠處輕聲呼喚",
+            desc: "保持距離溫柔地出聲叫醒牠，等牠清醒後再通過。",
             icon: "🗣️",
             isCorrect: true,
-            feedback: "Correct! Calling its name gently from several feet away allows it to wake without feeling startled."
+            feedback: "答對了！俗話說「莫惹熟睡犬」，先在安全距離外輕聲讓牠自然醒來，可避免驚嚇反射咬人。"
           },
           {
-            title: "Nudge With Foot",
-            desc: "Gently push its side awake with your shoe.",
+            title: "用腳輕踢推醒牠",
+            desc: "走過去用鞋子輕輕踢或推牠的身體。",
             icon: "👟",
             isCorrect: false,
-            feedback: "Unsafe! A physical touch while deep in sleep can cause a startle reflex snap."
+            feedback: "不安全！狗狗在熟睡中被突然觸碰，往往會在看清是誰之前就本能地反咬一口。"
           },
           {
-            title: "Leap Over Dog",
-            desc: "Silently jump directly over the sleeping dog.",
+            title: "直接跨跳過去",
+            desc: "不發一聲，直接從熟睡的狗狗身上跳過去。",
             icon: "🦘",
             isCorrect: false,
-            feedback: "Risky! If the dog shifts as you jump, you could land on it or startle it into an immediate bite."
+            feedback: "有風險！如果狗狗在你跨越時剛好驚醒起身，你可能會踩到牠或引發驚嚇攻擊。"
           }
         ]
       },
       {
         id: 9,
-        category: "Safe Greeting Technique",
-        prompt: "An owner invites you to pet their calm dog. Where is the best place to pet it first?",
+        category: "正確撫摸部位",
+        prompt: "狗主人同意讓你摸摸他溫馴的狗狗。第一次接觸時，摸哪個部位最安全友善？",
         sceneSvg: `
           <svg class="w-full h-full" viewBox="0 0 500 200" fill="none">
             <rect width="500" height="200" fill="#f0fdfa"/>
@@ -671,37 +671,37 @@
             <circle cx="250" cy="130" r="30" fill="#0d9488"/>
             <ellipse cx="290" cy="145" rx="40" ry="22" fill="#14b8a6"/>
             <path d="M230 140 C230 135 235 130 240 135 C245 130 250 135 250 140 C250 148 240 153 240 153 C240 153 230 148 230 140 Z" fill="#f43f5e"/>
-            <text x="210" y="100" font-size="14" font-weight="bold" fill="#0f766e">Pet Side / Chest</text>
+            <text x="195" y="100" font-size="14" font-weight="bold" fill="#0f766e">輕摸胸口或肩膀側邊</text>
           </svg>
         `,
         options: [
           {
-            title: "Chest or Shoulder",
-            desc: "Gentle strokes on the side of neck or chest.",
+            title: "胸口或肩膀側邊",
+            desc: "先讓牠聞手背，再輕柔撫摸側頸或胸口。",
             icon: "✨",
             isCorrect: true,
-            feedback: "Correct! Petting chest or shoulders is non-threatening because the dog sees your hand the whole time."
+            feedback: "答對了！撫摸胸口或側肩不會遮擋狗狗的視線，能讓牠全程看見你的手，感覺最安心。"
           },
           {
-            title: "Top of Head",
-            desc: "Hover hand over eyes to pat top of skull.",
+            title: "頭頂正上方",
+            desc: "手掌直接蓋過狗狗的眼睛上方拍頭頂。",
             icon: "🖐️",
             isCorrect: false,
-            feedback: "Less Ideal! Reaching over eyes blocks the dog's view and can cause ducking or anxiety."
+            feedback: "不太理想！手掌從眼睛上方壓下來會帶來威脅感，容易令狗狗退縮或緊張。"
           },
           {
-            title: "Tail or Hind Legs",
-            desc: "Touch its back paws or grasp its tail.",
+            title: "尾巴或後腿",
+            desc: "直接去抓狗狗的尾巴或撫摸後腳。",
             icon: "🐾",
             isCorrect: false,
-            feedback: "Unsafe! Dogs are sensitive about paws and tail; touching hind areas can provoke defensive turns."
+            feedback: "不安全！狗狗對尾巴與腳掌非常敏感，隨意觸碰後半身容易引起防衛反應。"
           }
         ]
       },
       {
         id: 10,
-        category: "Dog Territory",
-        prompt: "You are delivering a package and a dog is barking behind a low fence or gate. What should you do?",
+        category: "狗狗的領地意識",
+        prompt: "你去送包裹時，院子圍欄或鐵門後有一隻狗狗正對著你吠叫。你應該怎麼做？",
         sceneSvg: `
           <svg class="w-full h-full" viewBox="0 0 500 200" fill="none">
             <rect width="500" height="200" fill="#f8fafc"/>
@@ -717,25 +717,25 @@
         `,
         options: [
           {
-            title: "Keep Outside Fence",
-            desc: "Never reach over fence; place package safely outside.",
+            title: "留在圍欄外",
+            desc: "絕不把手伸進圍欄內，將包裹放在圍欄外安全處。",
             icon: "📦",
             isCorrect: true,
-            feedback: "Correct! Dogs strongly defend their yard boundary. Reaching over invades territorial space."
+            feedback: "答對了！狗狗對自己的院子有強烈的領地保護意識，把手伸進圍欄會被視為入侵領地。"
           },
           {
-            title: "Reach Over to Pet",
-            desc: "Extend your hand across the fence to sniff.",
+            title: "把手伸過圍欄示好",
+            desc: "把手伸進柵欄裡讓狗狗聞氣味。",
             icon: "✋",
             isCorrect: false,
-            feedback: "Dangerous! Delivery workers frequently get bitten reaching over boundary fences."
+            feedback: "危險！郵差與快遞員最常因為將手伸入圍欄或信箱縫隙而被護院犬咬傷。"
           },
           {
-            title: "Open Gate Quickly",
-            desc: "Open gate to slip inside quickly.",
+            title: "自己開門快速進去",
+            desc: "推開院子大門，想快步把包裹放到門口。",
             icon: "🚪",
             isCorrect: false,
-            feedback: "Very Dangerous! Entering a dog's yard unannounced can cause severe territorial attacks."
+            feedback: "極度危險！未經主人陪同擅自進入狗狗的領地，極可能引發嚴重的護衛攻擊。"
           }
         ]
       }
@@ -821,7 +821,7 @@
       document.getElementById('actionBtn').disabled = true;
 
       const q = questions[index];
-      document.getElementById('questionTag').textContent = `Question ${index + 1}/${questions.length}`;
+      document.getElementById('questionTag').textContent = `第 ${index + 1}/${questions.length} 題`;
       document.getElementById('scenarioCategory').textContent = q.category;
       document.getElementById('questionPrompt').textContent = q.prompt;
       document.getElementById('scenarioVisual').innerHTML = q.sceneSvg;
@@ -847,7 +847,6 @@
 
       q.options.forEach((opt, optIdx) => {
         const card = document.createElement('button');
-        // Locked 155px height card with overflow hidden
         card.className = 'option-card h-[155px] text-left bg-white rounded-2xl p-3 border-2 border-slate-200 hover:border-slate-300 hover:shadow transition-all flex flex-col items-center justify-center cursor-pointer group active:scale-[0.98] w-full overflow-hidden';
         card.setAttribute('data-index', optIdx);
 
@@ -908,7 +907,7 @@
     function updateTimerUI(seconds) {
       const timerText = document.getElementById('timerText');
       const timerCircle = document.getElementById('timerCircle');
-      if (timerText) timerText.textContent = `${seconds}s`;
+      if (timerText) timerText.textContent = `${seconds}秒`;
 
       const totalOffset = 251.2;
       const progress = seconds / 15;
@@ -935,12 +934,12 @@
         score += 100 + Math.max(0, timer * 5);
         updateScoreUI();
         markTrackNode(currentIndex, true);
-        showFeedback(true, "Safe Decision!", selected.feedback);
+        showFeedback(true, "安全的決定！", selected.feedback);
       } else {
         sfx.playWrong();
         deductLife();
         markTrackNode(currentIndex, false);
-        showFeedback(false, "Unsafe Action!", selected.feedback);
+        showFeedback(false, "危險的行為！", selected.feedback);
       }
     }
 
@@ -948,7 +947,7 @@
       sfx.playWrong();
       deductLife();
       markTrackNode(currentIndex, false);
-      showFeedback(false, "Time Out!", "Hesitating too long or freezing under panic can escalate unpredictable dog encounters. Always stay calm and remember your safe cues.");
+      showFeedback(false, "時間到！", "遇到突發狀況時猶豫太久或驚慌失措，可能會令情況惡化。請時刻保持冷靜並記住安全守則。");
     }
 
     function deductLife() {
@@ -965,7 +964,7 @@
     function updateLivesUI() {
       const text = document.getElementById('livesText');
       if (text) {
-        text.textContent = `${lives} Left`;
+        text.textContent = `剩餘 ${lives}`;
         if (lives === 1) {
           text.className = 'text-[11px] font-bold text-rose-600 animate-pulse mt-1';
         } else {
@@ -1072,13 +1071,13 @@
 
       if (lives <= 0) {
         icon.textContent = '💔';
-        title.textContent = 'Out of Lives!';
-        subtitle.textContent = 'You lost all 3 hearts. Review canine body language and safe habits to try again!';
+        title.textContent = '生命值耗盡！';
+        subtitle.textContent = '你失去了全部 3 顆愛心。溫習一下狗狗的肢體語言與安全守則，再挑戰一次吧！';
         starsElem.textContent = '★☆☆☆';
       } else {
         icon.textContent = '🏆';
-        title.textContent = 'Quiz Completed!';
-        subtitle.textContent = 'Congratulations! You demonstrated excellent knowledge of dog safety!';
+        title.textContent = '問答挑戰完成！';
+        subtitle.textContent = '恭喜你！你對狗狗安全互動知識有非常出色的掌握！';
         let starStr = '★★★★';
         if (score < 400) starStr = '★★☆☆';
         else if (score < 800) starStr = '★★★☆';
@@ -1109,12 +1108,12 @@
 
     document.getElementById('backBtn').addEventListener('click', () => {
       sfx.playClick();
-      window.location.href = 'mode_selection.html';
+      window.location.href = 'mode_selection_cn.html';
     });
 
     document.getElementById('menuBtn').addEventListener('click', () => {
       sfx.playClick();
-      window.location.href = 'mode_selection.html';
+      window.location.href = 'mode_selection_cn.html';
     });
 
     function handleMuteToggle() {
@@ -1126,11 +1125,11 @@
       if (isMuted) {
         topIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>`;
         if (sideIcon) sideIcon.textContent = '🔇';
-        if (sideText) sideText.textContent = 'Sound Off';
+        if (sideText) sideText.textContent = '音效關閉';
       } else {
         topIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z"/>`;
         if (sideIcon) sideIcon.textContent = '🔊';
-        if (sideText) sideText.textContent = 'Sound On';
+        if (sideText) sideText.textContent = '音效開啟';
         sfx.playClick();
       }
     }
